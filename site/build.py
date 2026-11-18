@@ -28,7 +28,7 @@ PLACEHOLDER = "Coming after the 2026 season"
 
 NAV = [("Home", "index.html"), ("Champions", "champions/index.html"), ("Seasons", "seasons/index.html"),
        ("Owners", "owners/index.html"), ("Record Book", "records/index.html"),
-       ("Head-to-Head", "head-to-head/index.html"), ("About", "about/index.html")]
+       ("Head-to-Head", "head-to-head/index.html"), ("Storylines", "storylines/index.html"), ("About", "about/index.html")]
 
 
 def e(value) -> str:
@@ -133,6 +133,7 @@ class Data:
         self.classes = load("draft_classes.json")
         self.trades = load("trades.json")
         self.coverage = load("coverage.json")
+        self.storylines = load("storylines.json") if (data_dir / "storylines.json").exists() else []
         self.content_dir = content_dir
         self.owner = {o["owner_id"]: o for o in self.owners}
         self.season = {s["season"]: s for s in self.seasons}
@@ -390,6 +391,11 @@ def page_home(site: Site):
                      f'<div class="sub">{e(top["owner_name"])}{" · " + e(top["context"]) if top["context"] else ""}</div></a>')
     story = d.content("home.md")
     titles = sorted((c for c in d.career.values() if c["titles"]), key=lambda c: (-c["titles"], c["owner_name"]))
+    featured_ids = ["SL-DYNASTY-OWNER_006", "SL-REPEATFINAL-OWNER_009"]
+    active = [x for x in d.storylines if x["status"] == "Active"]
+    featured = [x for x in d.storylines if x["storyline_id"] in featured_ids]
+    featured += [x for x in active if x not in featured][: max(0, 3 - len(featured))]
+    stories_html = "".join(story_card(d, root, x, compact=True) for x in featured[:3])
     body = f"""
 <section class="hero" aria-labelledby="hero-title">
   <div class="hero-grid">
@@ -414,6 +420,11 @@ def page_home(site: Site):
   <div class="kicker">From the record book</div><h2 id="quick-title">Quick records</h2>
   <div class="grid sm-2 lg-3">{''.join(quick)}</div>
   <p class="small" style="margin-top:.75rem"><a href="records/index.html">See the full record book →</a></p>
+</section>
+<section style="margin-top:2rem" aria-labelledby="stories-title">
+  <div class="kicker">Storyline registry</div><h2 id="stories-title">Storylines to know</h2>
+  <div class="grid md-3">{stories_html}</div>
+  <p class="small" style="margin-top:.75rem"><a href="storylines/index.html">All {len(d.storylines)} storylines →</a></p>
 </section>
 <section style="margin-top:2rem" class="grid md-3">
   <div style="grid-column: span 2">
@@ -736,6 +747,9 @@ def page_owner(site: Site, o: dict):
 
     titles = " ".join(badge(f"{y} Champion", "champion") for y in c.get("title_years", []))
     bio = d.content("owners", f"{oid}.md")
+    my_stories = [x for x in d.storylines if oid in (x.get("participating_owner_ids") or [])]
+    stories_html = ('<div class="grid md-2" style="margin-top:1rem">' + "".join(story_card(d, root, x) for x in my_stories) + "</div>"
+                    if my_stories else '<p class="muted" style="margin-top:1rem">No registered storylines yet.</p>')
     body = f"""
 <div class="page-head"><div class="kicker">Owner profile · {e(oid)}</div><h1>{e(o['name'])}</h1>
 <p class="lede">{o['seasons_played']} season{'s' if o['seasons_played'] != 1 else ''}, {o['first_season']}–{o['last_season']}{' · active' if o['active'] else ''}.</p>
@@ -743,7 +757,8 @@ def page_owner(site: Site, o: dict):
 <div class="grid sm-2 lg-6" style="margin-bottom:1.5rem">{stats}</div>
 <section style="margin-bottom:1.5rem" aria-label="Owner biography">{('<div class="prose">' + bio + '</div>') if bio else placeholder('The ' + o['name'] + ' legacy profile')}</section>
 {tabs('owner', [('seasons', 'Seasons', seasons_html), ('h2h', 'Head-to-head', h2h_html), ('draft', 'Draft', draft_html),
-                ('records', f'Records ({len(rrows)})', records_html), ('trades', f'Trades ({len(my_trades)})', trades_html)])}"""
+                ('records', f'Records ({len(rrows)})', records_html), ('trades', f'Trades ({len(my_trades)})', trades_html),
+                ('stories', f'Storylines ({len(my_stories)})', stories_html)])}"""
     site.write(f"owners/{owner_slug(d, oid)}/index.html", o["name"], body, active="Owners",
                crumbs=[("Owners", "owners/index.html"), (o["name"], None)],
                description=f"{o['name']}: D.J.U.A.C. career record, seasons, head-to-head and draft history.")
@@ -784,9 +799,79 @@ def page_records(site: Site):
 <p class="lede">Top-five leaderboards across career, season, week, streak, draft and trade records. Each record shows its definition.
 Cross-era scoring records use indexes (score ÷ league average × 100) because 2007's scoring scale was several times larger.</p></div>
 <div class="placeholder" role="note" style="margin-bottom:1rem">{badge('How to read', 'secondary')}<p>Results use ESPN official scores; scoring records use points actually scored, so commissioner penalties don't create false record lows.
-Draft records use only seasons with verified player scoring (2007–2011, 2017, 2019–{d.meta['last_season']}). Trade records cover 2018 onward.</p></div>
+Draft records use every season except 2018, when ESPN re-scored player points. Trade records cover 2018 onward.</p></div>
 {toc}{''.join(sections)}"""
     site.write("records/index.html", "Record Book", body, active="Record Book", crumbs=[("Record Book", None)])
+
+
+STORY_CATEGORY_LABELS = {
+    "championship_drought": "Championship droughts", "dynasty": "Dynasties", "repeat_champion": "Repeat champions",
+    "repeat_finalist": "Bridesmaids", "title_game_rematch": "Title-game rematches", "playoff_rivalry": "Playoff rivalries",
+    "lopsided_series": "Lopsided series", "top_seed_fate": "Top-seed fate", "underdog_champion": "Underdog champions",
+    "playoff_collapse": "Playoff collapses", "redemption": "Redemption arcs", "dominant_season": "Dominant seasons",
+    "streak": "Streaks", "trade_partnership": "Trade partnerships", "trade_activity": "Trade activity",
+    "draft_loyalty": "Draft loyalty", "membership": "Membership", "franchise_lineage": "Franchise lineage",
+    "first_titles": "First titles", "schedule_luck": "Schedule luck", "regular_season_byes": "Regular-season byes",
+}
+STATUS_KIND = {"Active": "primary", "Developing": "accent", "Dormant": "secondary", "Resolved": "outline", "Historical": "outline"}
+
+
+def story_card(d: Data, root: str, st: dict, compact=False) -> str:
+    owners = ", ".join(owner_link(d, root, oid) for oid in st.get("participating_owner_ids") or [])
+    seasons = st.get("relevant_seasons") or []
+    span = (f"{min(seasons)}–{max(seasons)}" if len(seasons) > 1 else str(seasons[0])) if seasons else ""
+    head = (f'<div class="badges">{badge(st["status"], STATUS_KIND.get(st["status"], "outline"))}'
+            f'{badge(STORY_CATEGORY_LABELS.get(st["category"], st["category"].replace("_", " ").title()), "outline")}'
+            f'{badge(span, "secondary") if span else ""}</div>')
+    body = f'{head}<p style="margin:.5rem 0">{e(st["description"])}</p>'
+    if owners:
+        body += f'<p class="small muted" style="margin:.25rem 0">Owners: {owners}</p>'
+    if not compact:
+        events = [ev for ev in st.get("supporting_events") or [] if ev.get("description")][:6]
+        if events:
+            body += '<ul class="small" style="margin:.5rem 0 0;padding-left:1.1rem">' + "".join(
+                f'<li><a href="{root}seasons/{ev["season"]}/index.html">{ev["season"]}</a>{" wk " + str(ev["week"]) if ev.get("week") else ""}: {e(ev["description"])}</li>'
+                for ev in events) + "</ul>"
+        if st.get("potential_future_developments"):
+            body += f'<p class="small muted" style="margin:.5rem 0 0"><strong>What to watch:</strong> {e(st["potential_future_developments"])}</p>'
+    return f'<div id="{slug(st["storyline_id"])}">' + card(e(st["title"]), body) + "</div>"
+
+
+def page_storylines(site: Site):
+    d = site.d
+    root = "../"
+    order = ["Active", "Developing", "Dormant", "Resolved", "Historical"]
+    cats = []
+    for st in d.storylines:
+        if st["category"] not in cats:
+            cats.append(st["category"])
+    counts = {k: sum(1 for x in d.storylines if x["status"] == k) for k in order}
+    filters = ('<nav class="toc" aria-label="Filter storylines by status">'
+               + '<button type="button" class="badge badge-primary" data-story-filter="all">All ' + str(len(d.storylines)) + '</button>'
+               + "".join(f'<button type="button" class="badge badge-outline" data-story-filter="{k}">{k} {n}</button>' for k, n in counts.items() if n)
+               + "</nav>")
+    sections = []
+    for cat in cats:
+        items = sorted((x for x in d.storylines if x["category"] == cat), key=lambda x: (order.index(x["status"]) if x["status"] in order else 9, x["title"]))
+        cards = "".join(f'<div data-story-status="{e(x["status"])}">{story_card(d, root, x)}</div>' for x in items)
+        sections.append(f'<section data-story-section style="margin-top:2rem" id="cat-{slug(cat)}"><h2>{e(STORY_CATEGORY_LABELS.get(cat, cat.replace("_", " ").title()))}</h2>'
+                        f'<div class="grid md-2">{cards}</div></section>')
+    script = """<script>
+document.querySelectorAll('[data-story-filter]').forEach(function(b){b.addEventListener('click',function(){
+ var f=b.getAttribute('data-story-filter');
+ document.querySelectorAll('[data-story-filter]').forEach(function(x){x.className='badge '+(x===b?'badge-primary':'badge-outline');x.setAttribute('aria-pressed',x===b);});
+ document.querySelectorAll('[data-story-status]').forEach(function(c){c.hidden=!(f==='all'||c.getAttribute('data-story-status')===f);});
+ document.querySelectorAll('[data-story-section]').forEach(function(s){s.hidden=!s.querySelector('[data-story-status]:not([hidden])');});
+});});
+</script>"""
+    body = f"""<div class="page-head"><div class="kicker">Registry</div><h1>Storylines</h1>
+<p class="lede">{len(d.storylines)} storylines found in {d.meta['first_season']}–{d.meta['last_season']}: droughts, dynasties, rivalries, collapses and comebacks.
+Each is built from the data and lists its supporting games. Status is as of the end of {d.meta['last_season']}.</p></div>
+<div class="placeholder" role="note" style="margin-bottom:1rem">{badge('How to read', 'secondary')}<p><strong>Active</strong> storylines involve current owners and are still open.
+<strong>Developing</strong> ones involve newer owners. <strong>Dormant</strong>, <strong>Resolved</strong> and <strong>Historical</strong> are closed or paused. Written features come after the next season.</p></div>
+{filters}{''.join(sections)}{script}"""
+    site.write("storylines/index.html", "Storylines", body, active="Storylines", crumbs=[("Storylines", None)],
+               description="D.J.U.A.C. storyline registry: droughts, dynasties, rivalries, collapses and comebacks.")
 
 
 def page_h2h(site: Site):
@@ -866,7 +951,7 @@ The {d.meta['last_season'] + 1} season is in progress and will be added once it'
 <section><h2>Known limitations</h2><ul>
 <li><strong>Trades and transactions before 2018 are not available.</strong> ESPN no longer serves them for those seasons. 2018 onward, trades are derived from week-to-week roster movement, because ESPN's own trade records are incomplete.</li>
 <li><strong>Weekly rosters before 2018 are partial.</strong> ESPN returns only season-end rosters for 2007–2017.</li>
-<li><strong>Player points for 2012–2016 and 2018 were recomputed by ESPN.</strong> They don't reconcile with team scores, so those seasons' draft values are flagged <em>ESPN rescored</em> and left out of draft records. Team scores are authoritative everywhere.</li>
+<li><strong>Player points for 2018 were recomputed by ESPN.</strong> They don't reconcile with team scores, so 2018 draft values are flagged <em>ESPN rescored</em> and left out of draft records. Before 2017, ESPN's weekly lineups omit some starters, but the player points present are genuine. Team scores are authoritative everywhere.</li>
 <li><strong>2007 used a much larger scoring scale</strong> (around 667 points per team-game, with punters and head coaches in the lineup). Use indexes, not raw points, to compare across eras.</li>
 <li><strong>2008 had 11 teams</strong>, so some weeks included byes.</li>
 <li><strong>2020 data notes:</strong> one team-week (Jesse Christman, week 6) has no starters in ESPN's data and scored 0. Weeks 11–12 include four −60 commissioner penalties; all four games were losses with or without the penalty.</li>
@@ -953,6 +1038,7 @@ def build(data_dir: Path, content_dir: Path, out: Path) -> Site:
         page_owner(site, o)
     page_records(site)
     page_h2h(site)
+    page_storylines(site)
     page_search(site)
     page_about(site)
     page_404(site)
