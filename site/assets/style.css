@@ -347,3 +347,11 @@ th a { padding-inline: .125rem; }
 
 /* newsletter matchup cards are stacked blocks, not the two-column results grid */
 .nl .game { display: block; }
+
+/* Matchup of the Week banner (newsletter) */
+.nl .motw { border: 3px solid hsl(var(--foreground)); background: hsl(var(--masthead)); color: hsl(var(--masthead-foreground)); padding: .875rem 1rem; margin: 1rem 0; }
+.nl .motw .kicker { color: hsl(var(--masthead-foreground)); margin-bottom: .25rem; }
+.nl .motw .v { font-family: var(--font-display); text-transform: uppercase; font-size: 1.5rem; line-height: 1.1; margin-bottom: .375rem; }
+.nl .motw p { margin: 0 0 .375rem; }
+.nl .motw .why { font-size: .875rem; }
+.nl .motw .also { font-size: .75rem; border-top: 2px solid hsl(var(--masthead-foreground)); padding-top: .375rem; margin-top: .5rem; }
