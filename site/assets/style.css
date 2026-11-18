@@ -300,3 +300,17 @@ html.js .sr-only-when-tabs { position: absolute; width: 1px; height: 1px; paddin
 .letter-grid .tile .by { font-size: .75rem; color: hsl(var(--muted-foreground)); }
 .letter-grid .tile.next { background: hsl(var(--accent)); color: hsl(var(--accent-foreground)); }
 .letter-grid .tile.next .yr, .letter-grid .tile.next .by { color: hsl(var(--accent-foreground)); }
+
+/* newsletter issue + season story ------------------------------------------ */
+.nl h2 { margin-top: 1.75rem; }
+.nl .k, .nl .kicker { font-size: .6875rem; font-weight: 800; text-transform: uppercase; letter-spacing: .14em; color: hsl(var(--accent-text)); margin-top: 1.5rem; }
+.nl .game { border: 2px solid hsl(var(--foreground)); padding: .75rem .875rem; margin: .875rem 0; }
+.nl .game .v { font-family: var(--font-display); text-transform: uppercase; font-size: 1.2rem; line-height: 1.15; margin-bottom: .375rem; }
+.nl .game .m { font-size: .8125rem; color: hsl(var(--muted-foreground)); margin-bottom: .375rem; }
+.nl .game p { margin: 0 0 .375rem; }
+.nl td.n, .nl th.n { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.nl tr.top td { background: hsl(var(--muted)); }
+.nl .win { font-weight: 800; }
+.nl .sig { font-family: var(--font-display); text-transform: uppercase; font-size: 1.4rem; margin-top: 1.5rem; }
+.nl hr.rule { border: 0; border-top: 4px solid hsl(var(--foreground)); margin: 1.75rem 0 0; }
+.nl .nl-foot { font-size: .75rem; color: hsl(var(--muted-foreground)); border-top: 1px solid hsl(var(--border)); padding-top: .75rem; margin-top: 1.5rem; }
