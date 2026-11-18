@@ -290,6 +290,16 @@ def table(headers: list[tuple[str, str]], rows: list[str], caption: str = "", so
             f'<tbody>{"".join(rows)}</tbody></table></div>')
 
 
+def expandable(headers, rows: list[str], shown: int = 5, sortable=False) -> str:
+    """A leaderboard table that shows `shown` rows and expands to all rows on click."""
+    if len(rows) <= shown:
+        return table(headers, rows, sortable=sortable)
+    marked = [r if i < shown else r.replace("<tr>", '<tr class="row-more">', 1) for i, r in enumerate(rows)]
+    btn = (f'<button type="button" class="expand-btn" data-expand aria-expanded="false" '
+           f'data-more="Show top {len(rows)}" data-less="Show top {shown}">Show top {len(rows)}</button>')
+    return f'<div class="expandable">{table(headers, marked, sortable=sortable)}{btn}</div>'
+
+
 def tabs(prefix: str, panels: list[tuple[str, str, str]]) -> str:
     """panels: (id, label, html). Without JS every panel renders stacked with its heading."""
     tl = "".join(f'<button role="tab" type="button" id="tab-{pid}" aria-controls="{pid}" aria-selected="false">{e(label)}</button>'
@@ -573,9 +583,9 @@ def page_season(site: Site, s: dict, prev_s, next_s):
         return (f'<tr><td>{owner_link(d, root, side["owner_id"], side["team_name"])}</td><td class="num">{g["week"]}</td>'
                 f'<td class="num">{val}</td><td>{res} vs {e(d.name(opp["owner_id"]))}</td></tr>')
     raw = lambda x: x[0]["raw_points"] if x[0]["raw_points"] is not None else x[0]["score"]
-    hi = sorted(perf, key=lambda x: -(raw(x) or 0))[:5]
-    lo = sorted(perf, key=lambda x: (raw(x) or 0))[:5]
-    margins = sorted(reg, key=lambda g: -(g["margin"] or 0))[:5]
+    hi = sorted(perf, key=lambda x: -(raw(x) or 0))[:25]
+    lo = sorted(perf, key=lambda x: (raw(x) or 0))[:25]
+    margins = sorted(reg, key=lambda g: -(g["margin"] or 0))[:25]
     hdr = [("Owner / team", "none"), ("Week", "none"), ("Points", "none"), ("Result", "none")]
     margin_rows = []
     for g in margins:
@@ -584,9 +594,9 @@ def page_season(site: Site, s: dict, prev_s, next_s):
         margin_rows.append(f'<tr><td>{owner_link(d, root, w["owner_id"], w["team_name"])}</td><td class="num">{g["week"]}</td>'
                            f'<td class="num">{fmt_pts(g["margin"])}</td><td>{fmt_pts(w["score"])}–{fmt_pts(l["score"])} vs {e(d.name(l["owner_id"]))}</td></tr>')
     top = ('<div class="grid lg-3">'
-           + card("Highest scores", table(hdr, [prow(*x, fmt_pts(raw(x))) for x in hi], sortable=False), "Points actually scored, regular season", flush=True)
-           + card("Lowest scores", table(hdr, [prow(*x, fmt_pts(raw(x))) for x in lo], sortable=False), "Points actually scored, regular season", flush=True)
-           + card("Biggest blowouts", table([("Winner", "none"), ("Week", "none"), ("Margin", "none"), ("Score", "none")], margin_rows, sortable=False), "Official margin, regular season", flush=True)
+           + card("Highest scores", expandable(hdr, [prow(*x, fmt_pts(raw(x))) for x in hi]), "Points actually scored, regular season", flush=True)
+           + card("Lowest scores", expandable(hdr, [prow(*x, fmt_pts(raw(x))) for x in lo]), "Points actually scored, regular season", flush=True)
+           + card("Biggest blowouts", expandable([("Winner", "none"), ("Week", "none"), ("Margin", "none"), ("Score", "none")], margin_rows), "Official margin, regular season", flush=True)
            + "</div>")
 
     # draft
@@ -729,7 +739,7 @@ def page_owner(site: Site, o: dict):
     held = []
     for r in d.records:
         for en in r["entries"]:
-            if en["owner_id"] == oid:
+            if en["owner_id"] == oid and en["rank"] <= 5:
                 held.append((r, en))
     rrows = [f'<tr><td>{e(r["category"])}</td><td><a href="{root}records/index.html#{slug(r["category"] + "-" + r["record"])}">{e(r["record"])}</a></td>'
              f'<td class="num">{badge("Record holder", "champion") if en["rank"] == 1 else ordinal(en["rank"])}</td>'
@@ -791,12 +801,12 @@ def page_records(site: Site):
                     f'<td class="num">{fmt_record_value(r["record"], en["value"])}</td><td class="small">{e(en["context"])}</td></tr>'
                     for en in r["entries"]]
             cards.append(f'<div class="record-cat" id="{slug(cat + "-" + r["record"])}">'
-                         + card(e(r["record"]), table([("#", "none"), ("Owner", "none"), ("Value", "none"), ("Context", "none")], rows, sortable=False),
+                         + card(e(r["record"]), expandable([("#", "none"), ("Owner", "none"), ("Value", "none"), ("Context", "none")], rows),
                                 e(r["definition"]) if r["definition"] else "", flush=True) + "</div>")
         sections.append(f'<section class="record-cat" id="cat-{slug(cat)}" style="margin-top:2rem"><h2>{e(cat)}</h2>'
                         f'<div class="grid lg-3" style="grid-template-columns:repeat(auto-fit,minmax(20rem,1fr))">{"".join(cards)}</div></section>')
     body = f"""<div class="page-head"><div class="kicker">Official</div><h1>The Record Book</h1>
-<p class="lede">Top-five leaderboards across career, season, week, streak, draft and trade records. Each record shows its definition.
+<p class="lede">Leaderboards across career, season, week, streak, draft and trade records: the top five shown, up to 25 on a click. Each record shows its definition.
 Cross-era scoring records use indexes (score ÷ league average × 100) because 2007's scoring scale was several times larger.</p></div>
 <div class="placeholder" role="note" style="margin-bottom:1rem">{badge('How to read', 'secondary')}<p>Results use ESPN official scores; scoring records use points actually scored, so commissioner penalties don't create false record lows.
 Draft records use every season except 2018, when ESPN re-scored player points. Trade records cover 2018 onward.</p></div>
