@@ -24,15 +24,35 @@ sys.path.insert(0, str(HERE))
 import tokens  # noqa: E402
 
 REPO = HERE.parent
-PLACEHOLDER = "Coming after the 2026 season"
+PLACEHOLDER = "Coming after this season"
+SITE_URL = "https://nchemby1996.github.io/dxuac-league-history/"
 
 NAV = [("Home", "index.html"), ("Champions", "champions/index.html"), ("Seasons", "seasons/index.html"),
        ("Owners", "owners/index.html"), ("Record Book", "records/index.html"),
-       ("Head-to-Head", "head-to-head/index.html"), ("Storylines", "storylines/index.html"), ("About", "about/index.html")]
+       ("Head-to-Head", "head-to-head/index.html"), ("Storylines", "storylines/index.html"), ("Lore", "lore/index.html"),
+       ("About", "about/index.html")]
 
 
 def e(value) -> str:
     return html.escape("" if value is None else str(value), quote=True)
+
+
+def target_svg(letter: str, cls: str = "", label: str | None = None) -> str:
+    """The brand mark: the defending champion's initial inside a red target reticle."""
+    a11y = f'role="img" aria-label="{e(label)}"' if label else 'aria-hidden="true"'
+    return (f'<svg class="{cls}" viewBox="0 0 64 64" {a11y}>'
+            '<circle cx="32" cy="32" r="29" fill="#FFE14D" stroke="#0B0B0B" stroke-width="3"/>'
+            '<circle cx="32" cy="32" r="21" fill="none" stroke="#D7261E" stroke-width="3"/>'
+            '<path d="M32 1v12M32 51v12M1 32h12M51 32h12" stroke="#0B0B0B" stroke-width="3"/>'
+            f'<text x="32" y="42" text-anchor="middle" font-family="Anton, Impact, Arial Black, sans-serif" font-size="30" fill="#D7261E">{e(letter)}</text></svg>')
+
+
+def favicon_svg(letter: str) -> str:
+    return ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">'
+            '<circle cx="32" cy="32" r="30" fill="#FFE14D" stroke="#0B0B0B" stroke-width="4"/>'
+            '<circle cx="32" cy="32" r="21" fill="none" stroke="#D7261E" stroke-width="4"/>'
+            '<path d="M32 0v14M32 50v14M0 32h14M50 32h14" stroke="#0B0B0B" stroke-width="4"/>'
+            f'<text x="32" y="44" text-anchor="middle" font-family="Impact, Arial Black, sans-serif" font-weight="900" font-size="32" fill="#D7261E">{e(letter)}</text></svg>')
 
 
 def slug(text: str) -> str:
@@ -175,6 +195,14 @@ class Data:
         o = self.owner.get(owner_id)
         return o["name"] if o else (owner_id or "Unknown")
 
+    def letter(self, season: int) -> str:
+        """The champion's first initial: the letter the league is named for the following season."""
+        return self.name(self.season[season]["champion"]["owner_id"])[:1].upper()
+
+    @property
+    def current_letter(self) -> str:
+        return self.letter(self.meta["last_season"])
+
     def content(self, *parts) -> str | None:
         path = self.content_dir.joinpath(*parts)
         if path.exists() and path.read_text(encoding="utf-8").strip():
@@ -218,18 +246,24 @@ class Site:
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{e(title)} · D.J.U.A.C. League Archives</title>
+<title>{e(title)} · D.{self.d.current_letter}.U.A.C. League Archives</title>
 <meta name="description" content="{e(description or 'The Official League Archives of the D.J.U.A.C. fantasy football league, ' + str(self.d.meta['first_season']) + '–' + str(last) + '.')}">
 <meta name="color-scheme" content="light dark">
 <script>(function(){{var d=document.documentElement;d.classList.add("js");try{{var t=localStorage.getItem("djuac-theme");if(t)d.setAttribute("data-theme",t);}}catch(e){{}}}})();</script>
 <link rel="stylesheet" href="{root}assets/style.css">
 <link rel="icon" href="{root}assets/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#FFE14D">
+<meta property="og:site_name" content="D.J.U.A.C. Official League Archives">
+<meta property="og:title" content="{e(title)} · D.{self.d.current_letter}.U.A.C. League Archives">
+<meta property="og:description" content="Defeat {self.d.current_letter} Under All Circumstances. Every result, every grudge, every letter since {self.d.meta['first_season']}.">
+<meta property="og:image" content="{SITE_URL}assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="masthead">
   <div class="container bar">
-    <a class="brand" href="{root}index.html"><span class="brand-mark">D.J.U.A.C.</span><span class="brand-sub">Official League Archives</span></a>
+    <a class="brand" href="{root}index.html" aria-label="D.{self.d.current_letter}.U.A.C. Official League Archives, home">{target_svg(self.d.current_letter, "brand-target")}<span class="brand-mark">D.<span class="brand-letter">{self.d.current_letter}</span>.U.A.C.</span><span class="brand-sub">Official League Archives</span></a>
     <a class="search-btn" href="{root}search/index.html" data-open-search>{ICON_SEARCH}<span class="label">Search</span><kbd>Ctrl K</kbd></a>
     <button class="icon-btn" id="theme-toggle" type="button" aria-label="Toggle theme">{ICON_SUN}{ICON_MOON}</button>
   </div>
@@ -240,8 +274,8 @@ class Site:
 {body}
 </div></main>
 <footer class="site-footer"><div class="container">
-  <p>D.J.U.A.C. · ESPN league history {self.d.meta['first_season']}–{last} · Data through the {last} season.
-  Results are ESPN official scores. <a href="{root}about/index.html">Methodology &amp; data coverage</a>.</p>
+  <p><strong>Defeat {self.d.current_letter} Under All Circumstances.</strong> Kept by The Ledger. ESPN league history {self.d.meta['first_season']}–{last}; results are ESPN official scores.
+  <a href="{root}about/index.html">How the record was built</a> · <a href="{root}lore/index.html">The Sword, the Shitter and the letter</a>.</p>
 </div></footer>
 <dialog class="cmdk" id="cmdk" aria-label="Search the archives">
   <div class="cmdk-head">{ICON_SEARCH}<input class="cmdk-input" id="cmdk-input" type="search" role="combobox" aria-expanded="true" aria-controls="cmdk-list" aria-autocomplete="list" placeholder="Search owners, teams, seasons, players…" autocomplete="off" spellcheck="false"></div>
@@ -274,7 +308,7 @@ def quality_badge(q) -> str:
 
 def placeholder(what: str) -> str:
     return (f'<div class="placeholder" role="note">{badge(PLACEHOLDER, "secondary")}'
-            f'<p>{e(what)} will be written once the 2026 season is complete. Everything else on this page is generated from the data.</p></div>')
+            f'<p>{e(what)} is still being written. The Ledger only publishes what it can prove. Everything else on this page comes straight from the data.</p></div>')
 
 
 def table(headers: list[tuple[str, str]], rows: list[str], caption: str = "", sortable=True, cls="") -> str:
@@ -382,7 +416,7 @@ def page_home(site: Site):
         tg_line = f'Beat {e(d.name(loser["owner_id"]))} {fmt_pts(winner["score"])}–{fmt_pts(loser["score"])} in the title game.'
     root = ""
     banner = "".join(
-        f'<a href="seasons/{s["season"]}/index.html"><div class="yr">{s["season"]}</div>'
+        f'<a href="seasons/{s["season"]}/index.html"><span class="ltr" title="The letter for the following season">{d.letter(s["season"])}</span><div class="yr">{s["season"]}</div>'
         f'<div class="who">{e(d.name(s["champion"]["owner_id"]))}</div><div class="team-name">{e(s["champion"]["team_name"])}</div></a>'
         for s in sorted(d.seasons, key=lambda s: -s["season"]))
     # quick records: rank-1 entries from a curated set of record names (only if present)
@@ -408,15 +442,16 @@ def page_home(site: Site):
     stories_html = "".join(story_card(d, root, x, compact=True) for x in featured[:3])
     body = f"""
 <section class="hero" aria-labelledby="hero-title">
+  {target_svg(d.current_letter, "hero-target")}
   <div class="hero-grid">
     <div>
-      <div class="kicker">Est. {d.meta['first_season']} · ESPN League</div>
+      <div class="kicker">Est. {d.meta['first_season']} · Defeat {d.current_letter} Under All Circumstances</div>
       <h1 id="hero-title">The Official League Archives</h1>
-      <p class="lede">{len(d.seasons)} seasons, {len(d.owners)} owners and {games:,} games of D.J.U.A.C. history, {d.meta['first_season']}–{last}. Every result, standing, draft pick and record, rebuilt from ESPN's own data.</p>
+      <p class="lede">{len(d.seasons)} seasons, {len(d.owners)} owners, {games:,} games. Every result, every grudge, every letter, rebuilt from ESPN's own data and kept by The Ledger.</p>
       <p class="hero-cta"><a class="btn-espn" href="https://fantasy.espn.com/football/league?leagueId=46009" target="_blank" rel="noopener">Go to the league on ESPN <span aria-hidden="true">↗</span></a></p>
     </div>
     <div class="hero-champ">
-      <div class="kicker">{last} Champion</div>
+      <div class="kicker">{last} Champion · Holder of the Sword</div>
       <div class="name"><a href="owners/{owner_slug(d, champ_id)}/index.html">{e(d.name(champ_id))}</a></div>
       <div>{e(latest['champion']['team_name'])}</div>
       <p class="small" style="margin:.5rem 0 0">{record_str(champ_row['wins'], champ_row['losses'], champ_row['ties'])} regular season · {ordinal(champ_row['seed'])} seed. {tg_line}</p>
@@ -424,16 +459,16 @@ def page_home(site: Site):
   </div>
 </section>
 <section class="stack" aria-labelledby="banner-title" style="margin-top:2rem">
-  <div><div class="kicker">Banners</div><h2 id="banner-title">Champions, every season</h2></div>
+  <div><div class="kicker">The Sword's lineage</div><h2 id="banner-title">Every champion, every letter</h2></div>
   <nav class="banner" aria-label="Champions by season">{banner}</nav>
 </section>
 <section style="margin-top:2rem" aria-labelledby="quick-title">
-  <div class="kicker">From the record book</div><h2 id="quick-title">Quick records</h2>
+  <div class="kicker">The record shows</div><h2 id="quick-title">Quick records</h2>
   <div class="grid sm-2 lg-3">{''.join(quick)}</div>
   <p class="small" style="margin-top:.75rem"><a href="records/index.html">See the full record book →</a></p>
 </section>
 <section style="margin-top:2rem" aria-labelledby="stories-title">
-  <div class="kicker">Storyline registry</div><h2 id="stories-title">Storylines to know</h2>
+  <div class="kicker">Somebody is still mad about these</div><h2 id="stories-title">Storylines to know</h2>
   <div class="grid md-3">{stories_html}</div>
   <p class="small" style="margin-top:.75rem"><a href="storylines/index.html">All {len(d.storylines)} storylines →</a></p>
 </section>
@@ -930,6 +965,36 @@ def page_search(site: Site):
     site.write("search/index.html", "Search", body, crumbs=[("Search", None)])
 
 
+
+def page_lore(site: Site):
+    d = site.d
+    root = "../"
+    seasons = sorted(d.season)
+    tiles = []
+    for yr in seasons:
+        if yr == seasons[0]:
+            tiles.append(f'<div class="tile"><div class="yr">{yr}</div><div class="nm">The first season</div><div class="by">No champion yet</div></div>')
+            continue
+        prev = yr - 1 if (yr - 1) in d.season else max(y for y in seasons if y < yr)
+        ltr = d.letter(prev)
+        tiles.append(f'<div class="tile"><div class="yr">{yr}</div><div class="nm">D.<span>{e(ltr)}</span>.U.A.C.</div>'
+                     f'<div class="by">after {e(d.name(d.season[prev]["champion"]["owner_id"]))} won {prev}</div></div>')
+    holder = d.name(d.season[seasons[-1]]["champion"]["owner_id"])
+    tiles.append(f'<div class="tile next"><div class="yr">Next season</div><div class="nm">D.<span>{e(d.current_letter)}</span>.U.A.C.</div>'
+                 f'<div class="by">{e(holder)} holds the Sword</div></div>')
+    story = d.content("lore.md") or ""
+    grid = '<div class="letter-grid" aria-label="The league name, season by season">' + "".join(tiles) + "</div>"
+    marker = next((m for m in ("<h3>The Sword</h3>", "<h2>The Sword</h2>") if m in story), None)
+    if marker:
+        story = story.replace(marker, grid + marker, 1)
+    else:
+        story += grid
+    body = f"""<div class="page-head"><div class="kicker">League lore</div><h1>The Sword, the Shitter and the Letter</h1>
+<p class="lede">The traditions the box scores don't show, kept on file by The Ledger.</p></div>
+<div class="prose" style="max-width:52rem">{story}</div>"""
+    site.write("lore/index.html", "Lore", body, active="Lore", crumbs=[("Lore", None)],
+               description="The D.J.U.A.C. letter, the Sword and the Golden Shitter.")
+
 def page_about(site: Site):
     d = site.d
     rows = [f'<tr><td class="num">{season_link("../", c["season"])}</td><td class="num">{c["teams"]}</td>'
@@ -940,7 +1005,7 @@ def page_about(site: Site):
     notes = "".join(f"<li>{e(n)}</li>" for n in d.meta["notes"])
     last = d.meta["last_season"]
     body = f"""<div class="page-head"><div class="kicker">Methodology</div><h1>About the Archives</h1>
-<p class="lede">How this record was built, what it covers, and where the source data has gaps.</p></div>
+<p class="lede">How the record was built, what it covers and where ESPN left holes. The Ledger shows its work.</p></div>
 <div class="stack prose" style="max-width:52rem">
 <section><h2>Source</h2>
 <p>Everything here comes from ESPN's own league history for the D.J.U.A.C. (ESPN Fantasy Football), {d.meta['first_season']}–{last}.
@@ -1031,7 +1096,10 @@ def build(data_dir: Path, content_dir: Path, out: Path) -> Site:
     (out / "assets").mkdir(parents=True)
     (out / "assets" / "style.css").write_text(tokens.css() + "\n" + (HERE / "assets" / "style.css").read_text(encoding="utf-8"), encoding="utf-8")
     shutil.copy(HERE / "assets" / "app.js", out / "assets" / "app.js")
-    (out / "assets" / "favicon.svg").write_text(FAVICON, encoding="utf-8")
+    (out / "assets" / "favicon.svg").write_text(favicon_svg(d.current_letter), encoding="utf-8")
+    shutil.copytree(HERE / "assets" / "fonts", out / "assets" / "fonts")
+    if (HERE / "assets" / "og.png").exists():
+        shutil.copy(HERE / "assets" / "og.png", out / "assets" / "og.png")
     (out / "assets" / "design-tokens.json").write_text(json.dumps(tokens.as_json(), indent=2) + "\n", encoding="utf-8")
     (out / "assets" / "search-index.js").write_text(
         "window.DJUAC_SEARCH=" + json.dumps(search_index(d), ensure_ascii=False, separators=(",", ":")) + ";\n", encoding="utf-8")
@@ -1050,6 +1118,7 @@ def build(data_dir: Path, content_dir: Path, out: Path) -> Site:
     page_records(site)
     page_h2h(site)
     page_storylines(site)
+    page_lore(site)
     page_search(site)
     page_about(site)
     page_404(site)
