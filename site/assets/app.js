@@ -188,3 +188,13 @@
     loadIndex(renderPage);
   }
 })();
+
+// Expandable leaderboards: top 5 <-> top 25
+document.addEventListener('click', function (ev) {
+  var btn = ev.target.closest('[data-expand]');
+  if (!btn) return;
+  var box = btn.closest('.expandable');
+  var open = box.classList.toggle('is-expanded');
+  btn.setAttribute('aria-expanded', open);
+  btn.textContent = open ? btn.getAttribute('data-less') : btn.getAttribute('data-more');
+});

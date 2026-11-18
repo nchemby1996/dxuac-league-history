@@ -266,3 +266,11 @@ html.js .sr-only-when-tabs { position: absolute; width: 1px; height: 1px; paddin
 @media (max-width: 639px) { .placeholder { flex-direction: column; } }
 .tab-panel:focus-visible { outline-offset: 6px; }
 .record-cat td:nth-child(2) { white-space: nowrap; }
+
+/* expandable leaderboards (top 5 → top 25) */
+.expandable:not(.is-expanded) .row-more { display: none; }
+.expand-btn { display: block; width: 100%; padding: .55rem .75rem; border: 0; border-top: 1px solid hsl(var(--border));
+  background: hsl(var(--muted) / .5); color: hsl(var(--foreground)); font: inherit; font-size: .8125rem; font-weight: 600;
+  cursor: pointer; border-radius: 0 0 var(--radius) var(--radius); }
+.expand-btn:hover { background: hsl(var(--muted)); }
+.expand-btn:focus-visible { outline: 2px solid hsl(var(--ring)); outline-offset: -2px; }
