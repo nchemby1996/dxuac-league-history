@@ -964,7 +964,7 @@ The {d.meta['last_season'] + 1} season is in progress and will be added once it'
 <li><strong>Player points for 2018 were recomputed by ESPN.</strong> They don't reconcile with team scores, so 2018 draft values are flagged <em>ESPN rescored</em> and left out of draft records. Before 2017, ESPN's weekly lineups omit some starters, but the player points present are genuine. Team scores are authoritative everywhere.</li>
 <li><strong>2007 used a much larger scoring scale</strong> (around 667 points per team-game, with punters and head coaches in the lineup). Use indexes, not raw points, to compare across eras.</li>
 <li><strong>2008 had 11 teams</strong>, so some weeks included byes.</li>
-<li><strong>2020 data notes:</strong> one team-week (Jesse Christman, week 6) has no starters in ESPN's data and scored 0. Weeks 11–12 include four −60 commissioner penalties; all four games were losses with or without the penalty.</li>
+<li><strong>2020 data notes:</strong> one team-week (Jesse Christman, week 6) has no starters in ESPN's data and scored 0. Weeks 11–12 include four −60 commissioner penalties. One changed a result: in week 11 Josh Book outscored Nate Hemby 143.5–109.5, and the penalty made it an 83.5–109.5 loss. The other three were losses either way.</li>
 </ul></section>
 <section><h2>Coverage by season</h2></section></div>
 {table([("Season", "num"), ("Teams", "num"), ("Reg. games", "num"), ("Postseason", "num"), ("Draft picks", "num"), ("Player points", "none"), ("Trades", "none")], rows)}
