@@ -1,0 +1,1 @@
+{"_comment": "Optional team-name masking for the public site. Keys: exact ESPN team name, or SEASON:OWNER_ID. Values: replacement text. Empty = publish names as ESPN shows them.", "team_names_by_name": {}, "team_names_by_season_owner": {}}
