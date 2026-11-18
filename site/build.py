@@ -139,6 +139,21 @@ def markdown(text: str) -> str:
 
 # ---------------------------------------------------------------------------- data
 
+def render_graphics(body: str, content_dir: Path, prefix: str) -> str:
+    """Replace {{g:ID|caption}} with a reaction figure. Alt text and file come from graphics/index.json."""
+    idx_path = content_dir / "newsletter" / "graphics" / "index.json"
+    lib = {g["id"]: g for g in json.loads(idx_path.read_text(encoding="utf-8"))["graphics"]} if idx_path.exists() else {}
+
+    def sub(m):
+        gid, cap = m.group(1), m.group(2)
+        g = lib.get(gid)
+        if not g:
+            raise SystemExit(f"newsletter graphic '{gid}' is not in graphics/index.json")
+        return (f'<figure class="reaction"><img src="{prefix}{g["file"]}" alt="{e(g["alt"])}" loading="lazy">'
+                f'<figcaption>{e(cap)}</figcaption></figure>')
+    return re.sub(r"\{\{g:([a-z_]+)\|([^}]*)\}\}", sub, body)
+
+
 def load_issues(content_dir: Path) -> list[dict]:
     """Newsletter issues: content/newsletter/*.html, each starting with <!--meta {json} -->."""
     out = []
@@ -148,7 +163,7 @@ def load_issues(content_dir: Path) -> list[dict]:
         if not m:
             continue
         meta = json.loads(m.group(1))
-        meta["slug"], meta["body"] = p.stem, t[m.end():]
+        meta["slug"], meta["body"] = p.stem, render_graphics(t[m.end():], content_dir, "../graphics/")
         out.append(meta)
     out.sort(key=lambda x: (x["season"], x["week"]), reverse=True)
     return out
@@ -1170,6 +1185,9 @@ def build(data_dir: Path, content_dir: Path, out: Path) -> Site:
     (out / "assets" / "design-tokens.json").write_text(json.dumps(tokens.as_json(), indent=2) + "\n", encoding="utf-8")
     (out / "assets" / "search-index.js").write_text(
         "window.DJUAC_SEARCH=" + json.dumps(search_index(d), ensure_ascii=False, separators=(",", ":")) + ";\n", encoding="utf-8")
+    gsrc = content_dir / "newsletter" / "graphics"
+    if gsrc.exists():
+        shutil.copytree(gsrc, out / "newsletter" / "graphics", ignore=shutil.ignore_patterns("*.json"))
     (out / ".nojekyll").write_text("", encoding="utf-8")
 
     site = Site(d, out)

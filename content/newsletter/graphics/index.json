@@ -1,0 +1,208 @@
+{
+  "about": "Reaction graphics library for The Ledger. Style B (linocut), brand palette, transparent background. Original characters only. Never put text inside an image: overlay numbers and captions in HTML.",
+  "characters": {
+    "clerk": "The Clerk: deadpan newsprint clerk with a red eyeshade. Main reactor.",
+    "sword": "The Sword: unimpressed sentient Sword. Lore cameos only.",
+    "reticle": "The Reticle: the target mark with a face. Emblem and lock-on stories."
+  },
+  "graphics": [
+    {
+      "id": "clerk_alarmed",
+      "character": "clerk",
+      "file": "clerk/clerk_alarmed.png",
+      "expression": "alarmed",
+      "alt": "The Clerk with wide eyes and an open mouth, both hands raised in alarm.",
+      "good_for": "shock, sudden turn, upset",
+      "first_used": null,
+      "uses": []
+    },
+    {
+      "id": "clerk_asleep",
+      "character": "clerk",
+      "file": "clerk/clerk_asleep.png",
+      "expression": "asleep",
+      "alt": "The Clerk standing with his eyes closed and a faint smile, asleep on his feet.",
+      "good_for": "quiet week, nothing happened, a team that disappeared",
+      "first_used": null,
+      "uses": []
+    },
+    {
+      "id": "clerk_deadpan",
+      "character": "clerk",
+      "file": "clerk/clerk_deadpan.png",
+      "expression": "deadpan",
+      "alt": "The Clerk with a blank expression and hands folded.",
+      "good_for": "neutral reporting, a plain fact",
+      "first_used": null,
+      "uses": []
+    },
+    {
+      "id": "clerk_magnifier",
+      "character": "clerk",
+      "file": "clerk/clerk_magnifier.png",
+      "expression": "investigating",
+      "alt": "The Clerk peering through a magnifying glass.",
+      "good_for": "a closer look, lineup report, checking the record",
+      "first_used": "2026-week-11",
+      "uses": [
+        "2026-week-11"
+      ]
+    },
+    {
+      "id": "clerk_redpen",
+      "character": "clerk",
+      "file": "clerk/clerk_redpen.png",
+      "expression": "correcting",
+      "alt": "The Clerk with a red pen, drawing a red X.",
+      "good_for": "a correction, a mistake, a lineup error",
+      "first_used": null,
+      "uses": []
+    },
+    {
+      "id": "clerk_smug",
+      "character": "clerk",
+      "file": "clerk/clerk_smug.png",
+      "expression": "smug",
+      "alt": "The Clerk with his arms crossed and a smug half-smile.",
+      "good_for": "a favorite holds, a good week, told you so",
+      "first_used": null,
+      "uses": []
+    },
+    {
+      "id": "clerk_stamp",
+      "character": "clerk",
+      "file": "clerk/clerk_stamp.png",
+      "expression": "stamping",
+      "alt": "The Clerk wincing, holding a red rubber stamp and a blank tag.",
+      "good_for": "a ruling, a verdict, a record stamped",
+      "first_used": null,
+      "uses": []
+    },
+    {
+      "id": "clerk_stunned",
+      "character": "clerk",
+      "file": "clerk/clerk_stunned.png",
+      "expression": "stunned",
+      "alt": "The Clerk stunned, eyes wide, mouth open, arms hanging.",
+      "good_for": "a blowout, a collapse, an upset",
+      "first_used": null,
+      "uses": []
+    },
+    {
+      "id": "clerk_wince_ledger",
+      "character": "clerk",
+      "file": "clerk/clerk_wince_ledger.png",
+      "expression": "wincing",
+      "alt": "The Clerk wincing with his eyes squeezed shut, clutching a yellow ledger.",
+      "good_for": "a bad record, a losing streak, the commissioner's record",
+      "first_used": "2026-week-11",
+      "uses": [
+        "2026-week-11"
+      ]
+    },
+    {
+      "id": "sword_alarmed",
+      "character": "sword",
+      "file": "sword/sword_alarmed.png",
+      "expression": "alarmed",
+      "alt": "The Sword with wide eyes and an open mouth, alarmed.",
+      "good_for": "lore: the Sword is threatened",
+      "first_used": null,
+      "uses": []
+    },
+    {
+      "id": "sword_asleep",
+      "character": "sword",
+      "file": "sword/sword_asleep.png",
+      "expression": "asleep",
+      "alt": "The Sword with its eyes closed, asleep.",
+      "good_for": "lore: the offseason, a quiet week",
+      "first_used": null,
+      "uses": []
+    },
+    {
+      "id": "sword_sideeye",
+      "character": "sword",
+      "file": "sword/sword_sideeye.png",
+      "expression": "side-eye",
+      "alt": "The Sword with heavy lids and a flat mouth, unimpressed.",
+      "good_for": "lore: the Golden Shitter, bottom of the table",
+      "first_used": "2026-week-11",
+      "uses": [
+        "2026-week-11"
+      ]
+    },
+    {
+      "id": "sword_smug",
+      "character": "sword",
+      "file": "sword/sword_smug.png",
+      "expression": "smug",
+      "alt": "The Sword with half-lidded eyes and a smirk.",
+      "good_for": "lore: the Sword holder wins",
+      "first_used": null,
+      "uses": []
+    },
+    {
+      "id": "sword_unimpressed",
+      "character": "sword",
+      "file": "sword/sword_unimpressed.png",
+      "expression": "unimpressed",
+      "alt": "The Sword with heavy-lidded eyes and a flat mouth, unimpressed.",
+      "good_for": "lore: the champion, the letter",
+      "first_used": null,
+      "uses": []
+    },
+    {
+      "id": "reticle_alarmed",
+      "character": "reticle",
+      "file": "reticle/reticle_alarmed.png",
+      "expression": "alarmed",
+      "alt": "The target emblem with a small shocked face.",
+      "good_for": "the target is in trouble",
+      "first_used": null,
+      "uses": []
+    },
+    {
+      "id": "reticle_asleep",
+      "character": "reticle",
+      "file": "reticle/reticle_asleep.png",
+      "expression": "asleep",
+      "alt": "The target emblem with a sleepy face.",
+      "good_for": "a quiet week for the target",
+      "first_used": null,
+      "uses": []
+    },
+    {
+      "id": "reticle_deadpan",
+      "character": "reticle",
+      "file": "reticle/reticle_deadpan.png",
+      "expression": "deadpan",
+      "alt": "The target emblem with a blank face.",
+      "good_for": "the target, the letter, a sign-off",
+      "first_used": null,
+      "uses": []
+    },
+    {
+      "id": "reticle_locked",
+      "character": "reticle",
+      "file": "reticle/reticle_locked.png",
+      "expression": "locked on",
+      "alt": "The target emblem with a fixed stare inside four red corner brackets.",
+      "good_for": "a high score, a locked-on story, a record chase",
+      "first_used": "2026-week-11",
+      "uses": [
+        "2026-week-11"
+      ]
+    },
+    {
+      "id": "reticle_smug",
+      "character": "reticle",
+      "file": "reticle/reticle_smug.png",
+      "expression": "smug",
+      "alt": "The target emblem with a content, smug face.",
+      "good_for": "the target is safe, the champion holds on",
+      "first_used": null,
+      "uses": []
+    }
+  ]
+}
