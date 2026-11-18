@@ -1,7 +1,8 @@
 # content/ — optional narrative
 
-Empty on purpose. Narrative writing waits until the 2026 season is complete.
-Until a file exists, each page shows a "Coming after the 2026 season" placeholder.
+Season stories for 2007–2025 are in `seasons/`, written only from verified league data. Every claim is logged with its
+source in the private data workflow. Owner legacies and the league-history essay are still to come; until a file
+exists, a page shows a "Coming after the 2026 season" placeholder.
 
 | File | Appears on |
 |---|---|
