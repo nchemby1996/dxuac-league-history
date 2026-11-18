@@ -3,8 +3,6 @@
 A public, evidence-backed history of the D.J.U.A.C. ESPN fantasy football league, 2007–2025,
 published as a static website on GitHub Pages.
 
-The 2026 season is in progress and is excluded until it is final.
-
 ## Structure
 
 ```
