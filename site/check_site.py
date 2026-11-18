@@ -4,8 +4,8 @@
     python site/check_site.py [_site]
 
 Checks: href/src targets exist (fragments must match an id), no GUID-like strings anywhere,
-no in-progress-season content (the only allowed mention of 2026 is the placeholder phrase in
-HTML, plus the shared tokens file's generation timestamp), no private file paths.
+no private file paths. (The in-progress season may appear on the site since 2026-11-18, by commissioner
+decision: weekly newsletter issues and the running season story are published.)
 Exit code 1 on any failure."""
 
 import re
@@ -16,8 +16,6 @@ from urllib.parse import unquote, urlsplit
 
 GUID = re.compile(r"[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}")
 PRIVATE = re.compile(r"(/home/|/root/|raw/espn|identity/|manifests/|espn_s2|SWID|intelligence)", re.I)
-ALLOWED_2026 = "Coming after the 2026 season"
-ALLOWED_2026_PROSE = ("once the 2026 season is complete", "The 2026 season is in progress")
 
 
 class Links(HTMLParser):
@@ -72,15 +70,6 @@ def main(site: Path) -> int:
             errors.append(f"{rel}: GUID-like string")
         if PRIVATE.search(text):
             errors.append(f"{rel}: private path/identifier: {PRIVATE.search(text).group(0)}")
-        if rel.as_posix() == "assets/design-tokens.json":
-            continue  # shared tokens carry their own generation timestamp
-        stripped = text.replace(ALLOWED_2026, "")
-        for phrase in ALLOWED_2026_PROSE:
-            stripped = stripped.replace(phrase, "")
-        if re.search(r"(?<!\d)2026(?!\d)", stripped):
-            errors.append(f"{rel}: mentions 2026 outside the placeholder")
-    if any("2026" in p.name for p in site.rglob("*")):
-        errors.append("a 2026 page or file exists")
     for err in errors:
         print("FAIL", err)
     print(f"{len(pages)} pages, {checked} internal links checked, {len(errors)} problems")

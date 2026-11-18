@@ -29,7 +29,8 @@ SITE_URL = "https://nchemby1996.github.io/dxuac-league-history/"
 
 NAV = [("Home", "index.html"), ("Champions", "champions/index.html"), ("Seasons", "seasons/index.html"),
        ("Owners", "owners/index.html"), ("Record Book", "records/index.html"),
-       ("Head-to-Head", "head-to-head/index.html"), ("Storylines", "storylines/index.html"), ("Lore", "lore/index.html"),
+       ("Head-to-Head", "head-to-head/index.html"), ("Storylines", "storylines/index.html"),
+       ("Newsletter", "newsletter/index.html"), ("This Season", "this-season/index.html"), ("Lore", "lore/index.html"),
        ("About", "about/index.html")]
 
 
@@ -137,6 +138,21 @@ def markdown(text: str) -> str:
 
 
 # ---------------------------------------------------------------------------- data
+
+def load_issues(content_dir: Path) -> list[dict]:
+    """Newsletter issues: content/newsletter/*.html, each starting with <!--meta {json} -->."""
+    out = []
+    for p in (content_dir / "newsletter").glob("*.html"):
+        t = p.read_text(encoding="utf-8")
+        m = re.match(r"\s*<!--meta (\{.*?\}) -->\s*", t, re.S)
+        if not m:
+            continue
+        meta = json.loads(m.group(1))
+        meta["slug"], meta["body"] = p.stem, t[m.end():]
+        out.append(meta)
+    out.sort(key=lambda x: (x["season"], x["week"]), reverse=True)
+    return out
+
 
 class Data:
     def __init__(self, data_dir: Path, content_dir: Path):
@@ -415,6 +431,13 @@ def page_home(site: Site):
         loser = tg["away"] if winner is tg["home"] else tg["home"]
         tg_line = f'Beat {e(d.name(loser["owner_id"]))} {fmt_pts(winner["score"])}–{fmt_pts(loser["score"])} in the title game.'
     root = ""
+    latest_html = ""
+    if getattr(d, "issues", None):
+        li = d.issues[0]
+        latest_html = (f'<section style="margin-top:2rem" aria-labelledby="latest-title"><div class="kicker">Latest from The Ledger</div>'
+                       f'<h2 id="latest-title">{e(li["title"])}</h2><p class="lede">{e(li["summary"])}</p>'
+                       f'<p class="small"><a href="newsletter/{e(li["slug"])}/index.html">Read Week {li["week"]} →</a> · '
+                       f'<a href="newsletter/index.html">All issues</a> · <a href="this-season/index.html">The season so far</a></p></section>')
     banner = "".join(
         f'<a href="seasons/{s["season"]}/index.html"><span class="ltr" title="The letter for the following season">{d.letter(s["season"])}</span><div class="yr">{s["season"]}</div>'
         f'<div class="who">{e(d.name(s["champion"]["owner_id"]))}</div><div class="team-name">{e(s["champion"]["team_name"])}</div></a>'
@@ -467,6 +490,7 @@ def page_home(site: Site):
   <div class="grid sm-2 lg-3">{''.join(quick)}</div>
   <p class="small" style="margin-top:.75rem"><a href="records/index.html">See the full record book →</a></p>
 </section>
+{latest_html}
 <section style="margin-top:2rem" aria-labelledby="stories-title">
   <div class="kicker">Somebody is still mad about these</div><h2 id="stories-title">Storylines to know</h2>
   <div class="grid md-3">{stories_html}</div>
@@ -955,6 +979,45 @@ Green = winning record, red = losing record; darker = more lopsided.</p></div>
     site.write("head-to-head/index.html", "Head-to-Head", body, active="Head-to-Head", crumbs=[("Head-to-Head", None)])
 
 
+def page_newsletter_index(site: Site):
+    issues = site.d.issues
+    if issues:
+        items = "".join(
+            f'<a class="card" href="{e(i["slug"])}/index.html"><div class="card-header"><div class="kicker">Week {i["week"]} · {e(i["date_label"])}</div>'
+            f'<h3 class="card-title">{e(i["title"])}</h3><p class="card-desc">{e(i["summary"])}</p></div></a>' for i in issues)
+        listing = f'<div class="grid md-2">{items}</div>'
+    else:
+        listing = placeholder("The first issue")
+    body = f"""<div class="page-head"><div class="kicker">The Ledger</div><h1>The weekly newsletter</h1>
+<p class="lede">Every week of the current season, in the order it happened. Results, streaks, records and the occasional lineup crime.</p></div>
+{listing}"""
+    site.write("newsletter/index.html", "Newsletter", body, active="Newsletter", crumbs=[("Newsletter", None)],
+               description="The Ledger's weekly D.J.U.A.C. newsletter archive.")
+
+
+def page_newsletter_issue(site: Site, i: dict, newer, older):
+    nav = ""
+    if older:
+        nav += f'<a href="../{e(older["slug"])}/index.html">← Week {older["week"]}</a>'
+    nav += '<a href="../index.html">All issues</a>'
+    if newer:
+        nav += f'<a href="../{e(newer["slug"])}/index.html">Week {newer["week"]} →</a>'
+    body = f"""<div class="page-head"><div class="kicker">The Ledger · Week {i["week"]} · {e(i["date_label"])}</div><h1>{e(i["title"])}</h1></div>
+<article class="prose nl" style="max-width:48rem">{i["body"]}</article>
+<p class="small" style="display:flex;gap:1.5rem;margin-top:1.5rem">{nav}</p>"""
+    site.write(f"newsletter/{i['slug']}/index.html", f"Week {i['week']}: {i['title']}", body, active="Newsletter",
+               crumbs=[("Newsletter", "newsletter/index.html"), (f"Week {i['week']}", None)], description=i["summary"])
+
+
+def page_this_season(site: Site):
+    story = site.d.content("this-season.md")
+    body = f"""<div class="page-head"><div class="kicker">The season so far</div><h1>The current season</h1>
+<p class="lede">The Ledger's running account of the season in progress. Rewritten every Wednesday.</p></div>
+<div class="prose nl" style="max-width:52rem">{story or placeholder("The season so far")}</div>"""
+    site.write("this-season/index.html", "The Season So Far", body, active="This Season", crumbs=[("This Season", None)],
+               description="The Ledger's running account of the season in progress.")
+
+
 def page_search(site: Site):
     body = """<div class="page-head search-page"><div class="kicker">Find anything</div><h1>Search</h1>
 <p class="lede">Owners, season team names, seasons and every drafted player. Tip: press <kbd>Ctrl</kbd> <kbd>K</kbd> (or <kbd>⌘</kbd> <kbd>K</kbd>) on any page.</p>
@@ -1012,7 +1075,7 @@ def page_about(site: Site):
 The data was extracted programmatically, stored unchanged, then normalized and cross-checked: computed regular-season records match ESPN's season records for all 195 team-seasons,
 every championship-game winner matches ESPN's final rank 1, and every season's draft has teams × rounds picks.</p>
 <p>Owners are tracked by a permanent owner ID tied to the displayed owner name, never by team name, so a single owner's history stays together through every rename.
-The {d.meta['last_season'] + 1} season is in progress and will be added once it's final.</p></section>
+The {d.meta['last_season'] + 1} season is in progress: its weekly newsletters and a running season story are on the <a href="../newsletter/index.html">Newsletter</a> and <a href="../this-season/index.html">This Season</a> pages, and its results join the record book and leaderboards once it's final.</p></section>
 <section><h2>Method notes</h2><ul>{notes}</ul></section>
 <section><h2>Definitions</h2><ul>
 <li><strong>Regular-season stats</strong> exclude every postseason game.</li>
@@ -1081,6 +1144,9 @@ def search_index(d: Data) -> list[dict]:
         more = f' · drafted {len(ent["picks"])}×' if len(ent["picks"]) > 1 else ""
         idx.append({"t": "player", "l": ent["name"], "s": f'{ent["pos"]} · {yr} Rd {rnd} by {d.name(oid)}{more}',
                     "u": f"seasons/{yr}/index.html#draft", "k": " ".join(d.name(x[2]) for x in ent["picks"])})
+    for i in getattr(d, "issues", []):
+        idx.append({"t": "newsletter", "l": f'Week {i["week"]}: {i["title"]}', "s": "The Ledger · " + i["date_label"],
+                    "u": f'newsletter/{i["slug"]}/index.html', "w": 3, "k": i["summary"]})
     for label, href in NAV[1:] + [("Search", "search/index.html")]:
         idx.append({"t": "page", "l": label, "u": href, "w": 1})
     return idx
@@ -1091,6 +1157,7 @@ FAVICON = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect w
 
 def build(data_dir: Path, content_dir: Path, out: Path) -> Site:
     d = Data(data_dir, content_dir)
+    d.issues = load_issues(content_dir)
     if out.exists():
         shutil.rmtree(out)
     (out / "assets").mkdir(parents=True)
@@ -1119,6 +1186,10 @@ def build(data_dir: Path, content_dir: Path, out: Path) -> Site:
     page_h2h(site)
     page_storylines(site)
     page_lore(site)
+    page_newsletter_index(site)
+    for k, iss in enumerate(d.issues):
+        page_newsletter_issue(site, iss, d.issues[k - 1] if k else None, d.issues[k + 1] if k + 1 < len(d.issues) else None)
+    page_this_season(site)
     page_search(site)
     page_about(site)
     page_404(site)

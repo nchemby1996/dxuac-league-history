@@ -125,7 +125,7 @@
     out.sort(function (a, b) { return b[0] - a[0]; });
     return out.slice(0, 40).map(function (x) { return x[1]; });
   }
-  var GROUPS = { owner: "Owners", season: "Seasons", team: "Team names", player: "Players", page: "Pages" };
+  var GROUPS = { owner: "Owners", season: "Seasons", team: "Team names", player: "Players", newsletter: "The Ledger", page: "Pages" };
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
 
   function wire(input, list, onNavigate) {
