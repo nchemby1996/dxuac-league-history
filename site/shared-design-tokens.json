@@ -1,0 +1,52 @@
+{
+ "schema_version": "1.0.0",
+ "dataset": "design_tokens",
+ "generated_at": "2026-11-18T04:48:57+00:00",
+ "scope": "presentation only",
+ "format": "shadcn/ui CSS variables: 'H S% L%' channels, used as hsl(var(--token))",
+ "radius": "0.625rem",
+ "font": {
+  "sans": "ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif",
+  "numeric": "font-variant-numeric: tabular-nums"
+ },
+ "light": {
+  "background": "0 0% 100%",
+  "foreground": "222 47% 11%",
+  "card": "0 0% 100%",
+  "card-foreground": "222 47% 11%",
+  "muted": "214 32% 95%",
+  "muted-foreground": "215 19% 35%",
+  "border": "214 28% 87%",
+  "input": "214 28% 87%",
+  "ring": "220 63% 22%",
+  "primary": "220 63% 22%",
+  "primary-foreground": "210 40% 98%",
+  "secondary": "214 32% 95%",
+  "secondary-foreground": "220 63% 22%",
+  "accent": "43 89% 52%",
+  "accent-foreground": "222 47% 11%",
+  "destructive": "0 72% 45%",
+  "destructive-foreground": "0 0% 100%"
+ },
+ "dark": {
+  "background": "222 47% 7%",
+  "foreground": "210 40% 96%",
+  "card": "222 40% 11%",
+  "card-foreground": "210 40% 96%",
+  "muted": "220 30% 17%",
+  "muted-foreground": "215 20% 70%",
+  "border": "220 26% 22%",
+  "input": "220 26% 22%",
+  "ring": "43 89% 56%",
+  "primary": "216 70% 64%",
+  "primary-foreground": "222 47% 9%",
+  "secondary": "220 30% 17%",
+  "secondary-foreground": "210 40% 96%",
+  "accent": "43 89% 56%",
+  "accent-foreground": "222 47% 9%",
+  "destructive": "0 63% 55%",
+  "destructive-foreground": "0 0% 100%"
+ },
+ "notes": "Dark primary is lightened so navy-on-dark stays readable (WCAG AA for text on card).",
+ "css": ":root {\n  --background: 0 0% 100%;\n  --foreground: 222 47% 11%;\n  --card: 0 0% 100%;\n  --card-foreground: 222 47% 11%;\n  --muted: 214 32% 95%;\n  --muted-foreground: 215 19% 35%;\n  --border: 214 28% 87%;\n  --input: 214 28% 87%;\n  --ring: 220 63% 22%;\n  --primary: 220 63% 22%;\n  --primary-foreground: 210 40% 98%;\n  --secondary: 214 32% 95%;\n  --secondary-foreground: 220 63% 22%;\n  --accent: 43 89% 52%;\n  --accent-foreground: 222 47% 11%;\n  --destructive: 0 72% 45%;\n  --destructive-foreground: 0 0% 100%;\n  --radius: 0.625rem;\n}\n@media (prefers-color-scheme: dark) {\n:root {\n  --background: 222 47% 7%;\n  --foreground: 210 40% 96%;\n  --card: 222 40% 11%;\n  --card-foreground: 210 40% 96%;\n  --muted: 220 30% 17%;\n  --muted-foreground: 215 20% 70%;\n  --border: 220 26% 22%;\n  --input: 220 26% 22%;\n  --ring: 43 89% 56%;\n  --primary: 216 70% 64%;\n  --primary-foreground: 222 47% 9%;\n  --secondary: 220 30% 17%;\n  --secondary-foreground: 210 40% 96%;\n  --accent: 43 89% 56%;\n  --accent-foreground: 222 47% 9%;\n  --destructive: 0 63% 55%;\n  --destructive-foreground: 0 0% 100%;\n  --radius: 0.625rem;\n}\n}\n"
+}
