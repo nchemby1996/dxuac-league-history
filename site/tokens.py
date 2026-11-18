@@ -1,4 +1,4 @@
-"""Design tokens: shadcn/ui variable names, HSL triplets (no hsl() wrapper), navy + gold accent.
+"""Design tokens: shadcn/ui variable names, HSL triplets (no hsl() wrapper). Tabloid + Target brand.
 
 Core values come from shared-design-tokens.json (shared with the newsletter).
 
@@ -17,34 +17,36 @@ RADIUS = SHARED["radius"]
 _sans = SHARED["font"]["sans"]
 FONTS = {
     "font-sans": _sans,
-    "font-display": _sans,
+    "font-display": SHARED["font"].get("display", _sans),
     "font-mono": 'ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace',
 }
 BREAKPOINTS = {"sm": "640px", "md": "768px", "lg": "1024px"}
 
 # Site-only extension tokens (not in the shared set): popover, masthead, link, status colours.
 SITE_LIGHT = {
-    "popover": "0 0% 100%", "popover-foreground": "222 47% 11%",
-    "primary-deep": "220 70% 12%",
-    "accent-text": "32 95% 30%",
+    "popover": "0 0% 100%", "popover-foreground": "0 0% 5%",
+    "primary-deep": "0 0% 3%",
+    "accent-text": "3 76% 38%",
     "destructive-text": "0 72% 40%",
     "success": "142 71% 35%", "success-text": "142 72% 25%",
     "warning": "38 92% 50%", "warning-text": "26 90% 30%",
     "silver": "215 16% 86%", "silver-foreground": "222 47% 15%",
-    "link": "220 63% 30%",
-    "masthead": "220 63% 16%", "masthead-foreground": "210 40% 98%",
-    "shadow": "222 47% 11%",
+    "link": "3 76% 36%",
+    "masthead": "50 100% 65%", "masthead-foreground": "0 0% 5%",
+    "hero": "0 0% 5%", "hero-foreground": "0 0% 100%",
+    "shadow": "0 0% 5%",
 }
 SITE_DARK = {
-    "popover": "222 40% 11%", "popover-foreground": "210 40% 96%",
-    "primary-deep": "220 60% 18%",
-    "accent-text": "43 89% 62%",
+    "popover": "0 0% 10%", "popover-foreground": "0 0% 96%",
+    "primary-deep": "0 0% 2%",
+    "accent-text": "50 100% 70%",
     "destructive-text": "0 90% 74%",
     "success": "142 69% 50%", "success-text": "142 69% 68%",
     "warning": "38 92% 55%", "warning-text": "43 96% 70%",
     "silver": "215 16% 72%", "silver-foreground": "222 47% 11%",
-    "link": "216 70% 74%",
-    "masthead": "222 50% 10%", "masthead-foreground": "210 40% 98%",
+    "link": "50 100% 70%",
+    "masthead": "50 100% 60%", "masthead-foreground": "0 0% 5%",
+    "hero": "0 0% 3%", "hero-foreground": "0 0% 100%",
     "shadow": "0 0% 0%",
 }
 LIGHT = {**SITE_LIGHT, **SHARED["light"]}
