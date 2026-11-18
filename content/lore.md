@@ -12,28 +12,28 @@ The champion doesn't get a trophy. He gets the Sword. It's passed from winner to
 
 There is always a last-place punishment. Once it's served, the Golden Shitter changes hands: a toilet seat engraved with the name of every loser in league history. The Sword goes to the top of the league. The Shitter goes to the bottom. Both get passed on. Nobody asks for either one back.
 
-The Ledger has finished transcribing the engravings. Last place means last in the regular season, one name per year, 2007 through 2025.
+The Ledger has finished transcribing the engravings. Last place means last in the postseason: the final standing after the playoffs and the consolation games, one name per year, 2007 through 2025. A good regular season is no protection. The record is shown only for context.
 
 ### The engraving roll
 
-- **2007:** Kyle Loy, *Karl Loy* (3-11)
-- **2008:** Tanner Forrest, *Team Awesomeness* (1-9)
-- **2009:** Jesse Christman, *Team Christman* (1-12)
-- **2010:** Luten Warrick, *THE DRIFTER 24* (3-10)
-- **2011:** John Barrows, *The Boldin The Beautiful* (3-9)
-- **2012:** Nate Hemby, *Winning Ain't Breesy* (3-9)
-- **2013:** John Barrows, *Bubbles' Nova Scotian Boys* (1-11)
-- **2014:** John Barrows, *Benenellis Boston PD* (1-11)
-- **2015:** Nate Hemby, *Moosey Moosey Moosey* (2-10)
-- **2016:** John Barrows, *Fernando's GOAT SQUAD* (5-7)
-- **2017:** Luke Martin, *CANYOUDIGGIT TERPS* (2-10)
-- **2018:** Kyle Loy, *Jimmy G-string* (4-8)
-- **2019:** Tyler Harris, *The Horny Buffalos* (2-10)
-- **2020:** Kyle Loy, *No hope Pats* (2-10)
-- **2021:** Jesse Christman, *--`--`-- --* (2-11)
-- **2022:** Tanner Forrest, *Gettin' Higgy With It* (2-11)
-- **2023:** Kyle Loy, *Ambulance* (2-11)
-- **2024:** Ethan Hess, *Aaron Hernandez's Taxi Service* (3-10)
-- **2025:** Josh Book, *Joshy Woshy Puddin' N' Pie* (1-12)
+- **2007:** Kyle Loy, *Karl Loy* (regular season 3-11)
+- **2008:** Brandon Mlekus, *no name* (regular season 4-7)
+- **2009:** Jesse Christman, *Team Christman* (regular season 1-12)
+- **2010:** Dylan Flora, *Dylan Flora* (regular season 5-8)
+- **2011:** John Barrows, *The Boldin The Beautiful* (regular season 3-9)
+- **2012:** Tyler Harris, *Joshy Woshy Puddin N Pie* (regular season 5-7)
+- **2013:** Seth Chandler, *Team Chandler Team Chandler* (regular season 6-6)
+- **2014:** John Barrows, *Benenellis Boston PD* (regular season 1-11)
+- **2015:** Nate Hemby, *Moosey Moosey Moosey* (regular season 2-10)
+- **2016:** John Barrows, *Fernando's GOAT SQUAD* (regular season 5-7)
+- **2017:** Ethan Hess, *My Nut Zach Ertz* (regular season 5-7)
+- **2018:** Ethan Hess, *Tittsburgh Stealers* (regular season 5-7)
+- **2019:** Tyler Harris, *The Horny Buffalos* (regular season 2-10)
+- **2020:** Jesse Christman, *2X Champ* (regular season 4-8)
+- **2021:** John Barrows, *Kiss The Ring* (regular season 4-9)
+- **2022:** Tanner Forrest, *Gettin' Higgy With It* (regular season 2-11)
+- **2023:** Tanner Forrest, *Downs Bad* (regular season 4-9)
+- **2024:** Josh Book, *Joshy Woshy Puddin' N' Pie* (regular season 7-6)
+- **2025:** Nate Hemby, *Moosey Moosey Moosey* (regular season 4-9)
 
-Kyle Loy and John Barrows lead the roll with 4 engravings each. Ten different owners have their names on it. Josh Book has seven titles and one engraving: 2025, at 1-12.
+John Barrows leads the roll with 4 engravings. 11 different owners have their names on it. Josh Book has seven titles and one engraving: 2024, after a 7-6 regular season.
