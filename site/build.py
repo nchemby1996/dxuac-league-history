@@ -1026,9 +1026,32 @@ def page_newsletter_issue(site: Site, i: dict, newer, older):
 
 def page_this_season(site: Site):
     story = site.d.content("this-season.md")
+    motw = ""
+    mp = site.d.content_dir / "motw.json"
+    if mp.exists():
+        log = json.loads(mp.read_text(encoding="utf-8"))
+        rows = []
+        for r in log:
+            wk = r["week"]
+            link = f'<a href="../newsletter/2026-week-{wk:02d}/index.html">{wk}</a>' if (site.d.content_dir / "newsletter" / f"2026-week-{wk:02d}.html").exists() else str(wk)
+            res = r.get("result")
+            if res:
+                hi, lo = sorted([(res["home"], res["home_score"]), (res["away"], res["away_score"])], key=lambda x: -x[1])
+                outcome = f'{e(hi[0])} {fmt_num(hi[1])}, {e(lo[0])} {fmt_num(lo[1])}'
+            else:
+                outcome = "Not played yet"
+            a, b = r["pick"]
+            rows.append(f'<tr><td class="num" data-v="{wk}">{link}</td><td>{e(a)} v. {e(b)}</td>'
+                        f'<td class="num">{r["score"]["total"]:.1f}</td><td>{outcome}</td>'
+                        f'<td>{e(r["also_considered"]["pair"][0])} v. {e(r["also_considered"]["pair"][1])}</td></tr>')
+        motw = ('<section class="section"><h2>Matchup of the Week log</h2>'
+                + table([("Week", "num"), ("Pick", "text"), ("Score", "num"), ("Result", "text"), ("Also considered", "text")], rows,
+                        caption="Each week's pick, scored out of 100 on stakes, team quality, series history, streaks and projection gap. Weeks 1 to 10 were scored after the fact from the same ESPN data and the same formula; series history counts meetings through 2025.")
+                + "</section>")
     body = f"""<div class="page-head"><div class="kicker">The season so far</div><h1>The current season</h1>
 <p class="lede">The Ledger's running account of the season in progress. Rewritten every Wednesday.</p></div>
-<div class="prose nl" style="max-width:52rem">{story or placeholder("The season so far")}</div>"""
+<div class="prose nl" style="max-width:52rem">{story or placeholder("The season so far")}</div>
+{motw}"""
     site.write("this-season/index.html", "The Season So Far", body, active="This Season", crumbs=[("This Season", None)],
                description="The Ledger's running account of the season in progress.")
 

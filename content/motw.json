@@ -1,0 +1,535 @@
+[
+ {
+  "week": 1,
+  "pick": [
+   "Tanner Forrest",
+   "John Barrows"
+  ],
+  "teams": [
+   "DEAN",
+   "Deshaun's RubnTizzuggers"
+  ],
+  "records": [
+   "0-0",
+   "0-0"
+  ],
+  "seeds": [
+   null,
+   null
+  ],
+  "score": {
+   "stakes": 15.0,
+   "quality": 10.0,
+   "history": 27.3,
+   "streaks": 0,
+   "closeness": 8.4,
+   "total": 60.7,
+   "history_parts": {
+    "series": 4,
+    "closeness": 5.3,
+    "postseason": 6,
+    "title": 8,
+    "storyline": 4
+   }
+  },
+  "also_considered": {
+   "pair": [
+    "Jesse Christman",
+    "Drew Martin"
+   ],
+   "total": 51.8
+  },
+  "result": {
+   "home": "Tanner Forrest",
+   "home_score": 138.56,
+   "away": "John Barrows",
+   "away_score": 173.02,
+   "winner": "John Barrows"
+  },
+  "method": "backfill"
+ },
+ {
+  "week": 2,
+  "pick": [
+   "Nate Hemby",
+   "Luke Martin"
+  ],
+  "teams": [
+   "Moosey Moosey Moosey",
+   "DJ's Back"
+  ],
+  "records": [
+   "1-0",
+   "1-0"
+  ],
+  "seeds": [
+   5,
+   1
+  ],
+  "score": {
+   "stakes": 30.0,
+   "quality": 16.4,
+   "history": 17.8,
+   "streaks": 0,
+   "closeness": 7.8,
+   "total": 72.0,
+   "history_parts": {
+    "series": 4,
+    "closeness": 3.8,
+    "postseason": 6,
+    "title": 0,
+    "storyline": 4
+   }
+  },
+  "also_considered": {
+   "pair": [
+    "John Barrows",
+    "Tanner Edwards"
+   ],
+   "total": 70.9
+  },
+  "result": {
+   "home": "Nate Hemby",
+   "home_score": 119.3,
+   "away": "Luke Martin",
+   "away_score": 97.92,
+   "winner": "Nate Hemby"
+  },
+  "method": "backfill"
+ },
+ {
+  "week": 3,
+  "pick": [
+   "Jesse Christman",
+   "Luke Martin"
+  ],
+  "teams": [
+   "Death, Taxes, Barkley Hurt",
+   "DJ's Back"
+  ],
+  "records": [
+   "1-1",
+   "1-1"
+  ],
+  "seeds": [
+   8,
+   4
+  ],
+  "score": {
+   "stakes": 30.0,
+   "quality": 10.9,
+   "history": 28.4,
+   "streaks": 0,
+   "closeness": 8.5,
+   "total": 77.8,
+   "history_parts": {
+    "series": 4,
+    "closeness": 8.4,
+    "postseason": 6,
+    "title": 8,
+    "storyline": 2
+   }
+  },
+  "also_considered": {
+   "pair": [
+    "John Barrows",
+    "Tyler Harris"
+   ],
+   "total": 67.3
+  },
+  "result": {
+   "home": "Jesse Christman",
+   "home_score": 148.36,
+   "away": "Luke Martin",
+   "away_score": 177.68,
+   "winner": "Luke Martin"
+  },
+  "method": "backfill"
+ },
+ {
+  "week": 4,
+  "pick": [
+   "Jesse Christman",
+   "Kyle Loy"
+  ],
+  "teams": [
+   "Death, Taxes, Barkley Hurt",
+   "Etienne the lamb"
+  ],
+  "records": [
+   "1-2",
+   "2-1"
+  ],
+  "seeds": [
+   7,
+   5
+  ],
+  "score": {
+   "stakes": 20.0,
+   "quality": 10.9,
+   "history": 15.9,
+   "streaks": 0,
+   "closeness": 8.8,
+   "total": 55.6,
+   "history_parts": {
+    "series": 4,
+    "closeness": 5.9,
+    "postseason": 6,
+    "title": 0,
+    "storyline": 0
+   }
+  },
+  "also_considered": {
+   "pair": [
+    "Tyler Harris",
+    "Tanner Forrest"
+   ],
+   "total": 54.4
+  },
+  "result": {
+   "home": "Jesse Christman",
+   "home_score": 112.92,
+   "away": "Kyle Loy",
+   "away_score": 156.56,
+   "winner": "Kyle Loy"
+  },
+  "method": "backfill"
+ },
+ {
+  "week": 5,
+  "pick": [
+   "James Brooks",
+   "Kyle Loy"
+  ],
+  "teams": [
+   "Twiggity Twiggity",
+   "Etienne the lamb"
+  ],
+  "records": [
+   "2-2",
+   "3-1"
+  ],
+  "seeds": [
+   9,
+   3
+  ],
+  "score": {
+   "stakes": 30.0,
+   "quality": 10.9,
+   "history": 8.0,
+   "streaks": 3,
+   "closeness": 9.9,
+   "total": 61.8,
+   "history_parts": {
+    "series": 4,
+    "closeness": 0.0,
+    "postseason": 4,
+    "title": 0,
+    "storyline": 0
+   }
+  },
+  "also_considered": {
+   "pair": [
+    "John Barrows",
+    "Josh Book"
+   ],
+   "total": 57.1
+  },
+  "result": {
+   "home": "James Brooks",
+   "home_score": 130.94,
+   "away": "Kyle Loy",
+   "away_score": 168.66,
+   "winner": "Kyle Loy"
+  },
+  "method": "backfill"
+ },
+ {
+  "week": 6,
+  "pick": [
+   "Nate Hemby",
+   "Tanner Forrest"
+  ],
+  "teams": [
+   "Moosey Moosey Moosey",
+   "DEAN"
+  ],
+  "records": [
+   "3-2",
+   "3-2"
+  ],
+  "seeds": [
+   7,
+   6
+  ],
+  "score": {
+   "stakes": 30.0,
+   "quality": 10.0,
+   "history": 25.4,
+   "streaks": 3,
+   "closeness": 8.6,
+   "total": 77.0,
+   "history_parts": {
+    "series": 4,
+    "closeness": 7.4,
+    "postseason": 6,
+    "title": 8,
+    "storyline": 0
+   }
+  },
+  "also_considered": {
+   "pair": [
+    "James Brooks",
+    "John Barrows"
+   ],
+   "total": 61.4
+  },
+  "result": {
+   "home": "Nate Hemby",
+   "home_score": 116.62,
+   "away": "Tanner Forrest",
+   "away_score": 124.66,
+   "winner": "Tanner Forrest"
+  },
+  "method": "backfill"
+ },
+ {
+  "week": 7,
+  "pick": [
+   "Tanner Forrest",
+   "Luke Martin"
+  ],
+  "teams": [
+   "DEAN",
+   "DJ's Back"
+  ],
+  "records": [
+   "4-2",
+   "3-3"
+  ],
+  "seeds": [
+   3,
+   5
+  ],
+  "score": {
+   "stakes": 30.0,
+   "quality": 14.5,
+   "history": 15.3,
+   "streaks": 4,
+   "closeness": 7.7,
+   "total": 71.5,
+   "history_parts": {
+    "series": 4,
+    "closeness": 5.3,
+    "postseason": 6,
+    "title": 0,
+    "storyline": 0
+   }
+  },
+  "also_considered": {
+   "pair": [
+    "John Barrows",
+    "Nate Hemby"
+   ],
+   "total": 60.8
+  },
+  "result": {
+   "home": "Tanner Forrest",
+   "home_score": 137.18,
+   "away": "Luke Martin",
+   "away_score": 200.02,
+   "winner": "Luke Martin"
+  },
+  "method": "backfill"
+ },
+ {
+  "week": 8,
+  "pick": [
+   "Kyle Loy",
+   "Tyler Harris"
+  ],
+  "teams": [
+   "Etienne the lamb",
+   "Bands Emeka Dance"
+  ],
+  "records": [
+   "5-2",
+   "4-3"
+  ],
+  "seeds": [
+   2,
+   5
+  ],
+  "score": {
+   "stakes": 30.0,
+   "quality": 15.5,
+   "history": 16.0,
+   "streaks": 0,
+   "closeness": 9.8,
+   "total": 71.3,
+   "history_parts": {
+    "series": 4,
+    "closeness": 6.0,
+    "postseason": 6,
+    "title": 0,
+    "storyline": 0
+   }
+  },
+  "also_considered": {
+   "pair": [
+    "Luke Martin",
+    "John Barrows"
+   ],
+   "total": 58.8
+  },
+  "result": {
+   "home": "Kyle Loy",
+   "home_score": 132.56,
+   "away": "Tyler Harris",
+   "away_score": 102.5,
+   "winner": "Kyle Loy"
+  },
+  "method": "backfill"
+ },
+ {
+  "week": 9,
+  "pick": [
+   "Tanner Forrest",
+   "Jesse Christman"
+  ],
+  "teams": [
+   "DEAN",
+   "Death, Taxes, Barkley Hurt"
+  ],
+  "records": [
+   "5-3",
+   "2-6"
+  ],
+  "seeds": [
+   4,
+   12
+  ],
+  "score": {
+   "stakes": 15.8,
+   "quality": 7.3,
+   "history": 25.6,
+   "streaks": 3,
+   "closeness": 7.3,
+   "total": 59.0,
+   "history_parts": {
+    "series": 4,
+    "closeness": 7.6,
+    "postseason": 6,
+    "title": 8,
+    "storyline": 0
+   }
+  },
+  "also_considered": {
+   "pair": [
+    "Tanner Edwards",
+    "Nate Hemby"
+   ],
+   "total": 58.8
+  },
+  "result": {
+   "home": "Tanner Forrest",
+   "home_score": 150.94,
+   "away": "Jesse Christman",
+   "away_score": 118.56,
+   "winner": "Tanner Forrest"
+  },
+  "method": "backfill"
+ },
+ {
+  "week": 10,
+  "pick": [
+   "Luke Martin",
+   "Tanner Edwards"
+  ],
+  "teams": [
+   "DJ's Back",
+   "Kitties and  Samsquanches"
+  ],
+  "records": [
+   "5-4",
+   "5-4"
+  ],
+  "seeds": [
+   5,
+   6
+  ],
+  "score": {
+   "stakes": 30.0,
+   "quality": 11.8,
+   "history": 26.0,
+   "streaks": 0,
+   "closeness": 6.8,
+   "total": 74.6,
+   "history_parts": {
+    "series": 4,
+    "closeness": 8.0,
+    "postseason": 6,
+    "title": 8,
+    "storyline": 0
+   }
+  },
+  "also_considered": {
+   "pair": [
+    "Nate Hemby",
+    "Tyler Harris"
+   ],
+   "total": 71.0
+  },
+  "result": {
+   "home": "Luke Martin",
+   "home_score": 246.58,
+   "away": "Tanner Edwards",
+   "away_score": 162.26,
+   "winner": "Luke Martin"
+  },
+  "method": "backfill"
+ },
+ {
+  "week": 11,
+  "pick": [
+   "Tanner Forrest",
+   "James Brooks"
+  ],
+  "teams": [
+   "DEAN",
+   "Twiggity Twiggity"
+  ],
+  "records": [
+   "7-3",
+   "7-3"
+  ],
+  "seeds": [
+   1,
+   2
+  ],
+  "score": {
+   "stakes": 25.4,
+   "quality": 19.1,
+   "history": 11.3,
+   "streaks": 8,
+   "closeness": 4.9,
+   "total": 68.7,
+   "history_parts": {
+    "series": 4,
+    "closeness": 5.3,
+    "postseason": 2,
+    "title": 0,
+    "storyline": 0
+   }
+  },
+  "also_considered": {
+   "pair": [
+    "John Barrows",
+    "Kyle Loy"
+   ],
+   "total": 68.5
+  },
+  "result": null,
+  "method": "live"
+ }
+]
