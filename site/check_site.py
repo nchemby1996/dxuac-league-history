@@ -34,6 +34,9 @@ class Links(HTMLParser):
                 self.links.append(a[k])
 
 
+# Deliberate outbound links (commissioner-approved). Everything else external fails the check.
+ALLOWED_EXTERNAL = {"https://fantasy.espn.com/football/league?leagueId=46009"}
+
 def main(site: Path) -> int:
     errors = []
     pages = {}
@@ -45,6 +48,8 @@ def main(site: Path) -> int:
     for path, p in pages.items():
         for link in p.links:
             parts = urlsplit(link)
+            if link in ALLOWED_EXTERNAL:
+                continue
             if parts.scheme in ("http", "https", "mailto") or link.startswith("//"):
                 errors.append(f"{path.relative_to(site.resolve())}: external link {link}")
                 continue

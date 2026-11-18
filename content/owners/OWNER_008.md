@@ -8,7 +8,9 @@ Then came 2009, the year that still stings. tdogg beast opened by hanging 255.5 
 
 And then, for a very long time, not much. In 2013 Give Jamaal The Ball went 3-9 while allowing the most points (by index) of any team in league history. In 2014 he drafted the most valuable pick of the year, DeMarco Murray in round three (+205), and still posted the worst draft class in league history (-2.61), because his No. 3 overall pick, Adrian Peterson, scored 9 points. A year later he spent a third-rounder on Peyton Manning and got -194 of value. In 2019 The Horny Buffalos went 2-10. Along the way he collected 33 weekly low scores, the most in league history, and won 8.5 fewer games than his all-play record predicted, the second-worst career luck in the book.
 
-The drought nearly broke in 2024. April Showers Bring Zay Flowers had the league's best draft class, built on Ja'Marr Chase at No. 5 (+260), led the league with 2,158 points, beat Ethan Hess 233-92.5 and took the No. 1 seed at 9-4. He got past Nate 161-143 and Christman 123-118.5. Then Luke Martin, the No. 7 seed, beat him 186.5-167 in the final.
+*The McAfrican Americans* got close first. They went out to Book 157-120 as the 9 seed in 2022, then took the No. 4 seed at 8-5 in 2023, beat Kyle Loy 179-125 and lost the semifinal to Tanner Edwards, 149-128.
+
+In 2024 the drought nearly broke. April Showers Bring Zay Flowers had the league's best draft class, built on Ja'Marr Chase at No. 5 (+260), led the league with 2,158 points, beat Ethan Hess 233-92.5 and took the No. 1 seed at 9-4. He got past Nate 161-143 and Christman 123-118.5. Then Luke Martin, the No. 7 seed, beat him 186.5-167 in the final.
 
 Last season was pure chaos. Are You Worthy? went 4-9 and slid in as the 9 seed, then hammered Nate 159.26-79.2 and knocked out 12-1 Luke Martin 117.40-113.86, despite ESPN showing only 10 starters in his lineup that week. Brock Purdy scored 31.2. He finished third and carries a five-game losing streak into next season.
 

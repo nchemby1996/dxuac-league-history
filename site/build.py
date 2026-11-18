@@ -413,6 +413,7 @@ def page_home(site: Site):
       <div class="kicker">Est. {d.meta['first_season']} · ESPN League</div>
       <h1 id="hero-title">The Official League Archives</h1>
       <p class="lede">{len(d.seasons)} seasons, {len(d.owners)} owners and {games:,} games of D.J.U.A.C. history, {d.meta['first_season']}–{last}. Every result, standing, draft pick and record, rebuilt from ESPN's own data.</p>
+      <p class="hero-cta"><a class="btn-espn" href="https://fantasy.espn.com/football/league?leagueId=46009" target="_blank" rel="noopener">Go to the league on ESPN <span aria-hidden="true">↗</span></a></p>
     </div>
     <div class="hero-champ">
       <div class="kicker">{last} Champion</div>

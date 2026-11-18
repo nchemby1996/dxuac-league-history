@@ -132,6 +132,10 @@ a.card:hover { border-color: hsl(var(--primary) / .5); box-shadow: 0 4px 12px hs
 .hero-champ { background: hsl(var(--masthead-foreground) / .08); border: 1px solid hsl(var(--accent) / .5); border-radius: var(--radius); padding: 1.25rem; }
 .hero-champ .name { font-family: var(--font-display); font-size: 1.5rem; font-weight: 800; }
 .hero-champ a { color: inherit; }
+.hero-cta { margin: 1rem 0 0; }
+.btn-espn { display: inline-flex; align-items: center; gap: .4rem; background: hsl(var(--accent)); color: hsl(var(--accent-foreground)); font-weight: 700; font-size: .9rem; padding: .55rem 1rem; border-radius: calc(var(--radius) - 2px); text-decoration: none; }
+.btn-espn:hover { filter: brightness(1.06); text-decoration: none; }
+.btn-espn:focus-visible { outline: 2px solid hsl(var(--masthead-foreground)); outline-offset: 2px; }
 
 .banner { display: flex; gap: .5rem; overflow-x: auto; padding-bottom: .5rem; scroll-snap-type: x proximity; }
 .banner a { flex: 0 0 auto; scroll-snap-align: start; min-width: 7.5rem; padding: .625rem .75rem; border-radius: calc(var(--radius) - 2px); border: 1px solid hsl(var(--border)); background: hsl(var(--card)); text-decoration: none; color: hsl(var(--foreground)); }
