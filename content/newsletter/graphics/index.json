@@ -13,8 +13,10 @@
       "expression": "alarmed",
       "alt": "The Clerk with wide eyes and an open mouth, both hands raised in alarm.",
       "good_for": "shock, sudden turn, upset",
-      "first_used": null,
-      "uses": []
+      "first_used": "2026-week-12",
+      "uses": [
+        "2026-week-12"
+      ]
     },
     {
       "id": "clerk_asleep",
@@ -98,8 +100,7 @@
       "good_for": "a bad record, a losing streak, the commissioner's record",
       "first_used": "2026-week-11",
       "uses": [
-        "2026-week-11",
-        "2026-week-12"
+        "2026-week-11"
       ]
     },
     {
@@ -161,10 +162,8 @@
       "expression": "alarmed",
       "alt": "The target emblem with a small shocked face.",
       "good_for": "the target is in trouble",
-      "first_used": "2026-week-12",
-      "uses": [
-        "2026-week-12"
-      ]
+      "first_used": null,
+      "uses": []
     },
     {
       "id": "reticle_asleep",
