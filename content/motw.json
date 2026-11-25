@@ -529,6 +529,55 @@
    ],
    "total": 68.5
   },
+  "result": {
+   "home": "Tanner Forrest",
+   "home_score": 124.6,
+   "away": "James Brooks",
+   "away_score": 147.4,
+   "winner": "James Brooks"
+  },
+  "method": "live"
+ },
+ {
+  "week": 12,
+  "pick": [
+   "Ethan Hess",
+   "Luke Martin"
+  ],
+  "teams": [
+   "Sir they hit the second Bower",
+   "DJ's Back"
+  ],
+  "records": [
+   "7-4",
+   "7-4"
+  ],
+  "seeds": [
+   3,
+   4
+  ],
+  "score": {
+   "stakes": 30.0,
+   "quality": 14.5,
+   "history": 18.0,
+   "streaks": 1,
+   "closeness": 0.3,
+   "total": 63.8,
+   "history_parts": {
+    "series": 4,
+    "closeness": 8.0,
+    "postseason": 6,
+    "title": 0,
+    "storyline": 0
+   }
+  },
+  "also_considered": {
+   "pair": [
+    "Tanner Forrest",
+    "Nate Hemby"
+   ],
+   "total": 53.0
+  },
   "result": null,
   "method": "live"
  }
